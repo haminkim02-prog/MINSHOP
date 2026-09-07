@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { CATEGORIES } from '../../consts.js';
+import { getPosts } from '../../lib/posts.js';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return CATEGORIES.map((cat) => ({
+    params: { category: cat.slug },
+    props: { cat, posts: posts.filter((p) => p.data.category === cat.slug) },
+  }));
+}
+
+const { cat, posts } = Astro.props;
+---
+
+<BaseLayout title={cat.name} description={cat.description}>
+  <div class="wrap">
+    <section class="hero">
+      <h1>{cat.name}</h1>
+      <p>{cat.description}</p>
+    </section>
+
+    <ul class="chips">
+      {
+        CATEGORIES.map((c) => (
+          <li>
+            <a
+              class="chip"
+              href={`/category/${c.slug}/`}
+              aria-current={c.slug === cat.slug ? 'page' : undefined}
+            >
+              {c.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      posts.length === 0 ? (
+        <p class="empty">이 카테고리에는 아직 글이 없습니다.</p>
+      ) : (
+        <ul class="post-list">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </ul>
+      )
+    }
+
+    <AdSlot slot="belowPost" label="광고" />
+  </div>
+</BaseLayout>

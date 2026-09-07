@@ -1,0 +1,42 @@
+---
+// 광고 자리.
+//   · ADSENSE.client 가 비어 있으면  → 회색 안내 박스만 보여줍니다 (승인 전 상태)
+//   · slot 번호가 있으면            → 실제 AdSense 광고 단위를 넣습니다 (수동 배치)
+//   · client 는 있고 slot 이 없으면  → 아무것도 넣지 않습니다 (자동 광고에 맡김)
+import { ADSENSE } from '../consts.js';
+
+const { slot = '', label = '광고' } = Astro.props;
+const slotId = ADSENSE.slots?.[slot] ?? '';
+const showPlaceholder = !ADSENSE.client;
+const showUnit = Boolean(ADSENSE.client && slotId);
+---
+
+{
+  showPlaceholder && (
+    <div class="ad-slot">
+      <span class="ad-slot__label">{label} 자리</span>
+      <div class="ad-slot__placeholder">
+        AdSense 승인 후 <code>src/consts.js</code> 의 <code>ADSENSE.client</code> 를 채우면
+        <br />이 자리에 광고가 표시됩니다.
+      </div>
+    </div>
+  )
+}
+
+{
+  showUnit && (
+    <div class="ad-slot">
+      <span class="ad-slot__label">{label}</span>
+      <ins
+        class="adsbygoogle"
+        data-ad-client={ADSENSE.client}
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <script is:inline>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  )
+}

@@ -1,0 +1,108 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { CATEGORIES, SITE } from '../../consts.js';
+import { getPosts } from '../../lib/posts.js';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      // 목록이 최신순이므로 i+1 이 더 예전 글입니다.
+      prev: posts[i + 1] ?? null,
+      next: posts[i - 1] ?? null,
+    },
+  }));
+}
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+const cat = CATEGORIES.find((c) => c.slug === post.data.category);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImage}
+  type="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate}
+>
+  <div class="wrap">
+    <article class="prose-wrap">
+      <header class="post-header">
+        <div class="post-header__meta">
+          {cat && <a class="post-card__cat" href={`/category/${cat.slug}/`}>{cat.name}</a>}
+          <FormattedDate date={post.data.pubDate} />
+          {
+            post.data.updatedDate && (
+              <span>
+                (<FormattedDate date={post.data.updatedDate} /> 수정)
+              </span>
+            )
+          }
+        </div>
+
+        <h1>{post.data.title}</h1>
+        <p class="post-header__desc">{post.data.description}</p>
+      </header>
+
+      {
+        post.data.heroImage && (
+          <img
+            src={post.data.heroImage}
+            alt={post.data.title}
+            width="1200"
+            height="675"
+            style="border-radius:var(--radius);border:1px solid var(--border);margin-bottom:2.5rem"
+          />
+        )
+      }
+
+      <AdSlot slot="inArticle" label="광고" />
+
+      <div class="post-body">
+        <Content />
+      </div>
+
+      {
+        post.data.tags.length > 0 && (
+          <ul class="chips" style="margin-top:2.5rem">
+            {post.data.tags.map((tag) => (
+              <li>
+                <span class="chip">#{tag}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <AdSlot slot="belowPost" label="광고" />
+
+      <nav class="post-nav" aria-label="다른 글">
+        {
+          prev ? (
+            <a href={`/blog/${prev.id}/`}>
+              <small>← 이전 글</small>
+              <span>{prev.data.title}</span>
+            </a>
+          ) : (
+            <span />
+          )
+        }
+        {
+          next && (
+            <a class="post-nav__next" href={`/blog/${next.id}/`}>
+              <small>다음 글 →</small>
+              <span>{next.data.title}</span>
+            </a>
+          )
+        }
+      </nav>
+    </article>
+  </div>
+</BaseLayout>

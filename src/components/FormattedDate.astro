@@ -1,0 +1,12 @@
+---
+const { date } = Astro.props;
+const iso = date instanceof Date ? date.toISOString() : String(date);
+const text = new Intl.DateTimeFormat('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'Asia/Seoul',
+}).format(date);
+---
+
+<time datetime={iso}>{text}</time>

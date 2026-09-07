@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { SITE, CATEGORIES } from '../consts.js';
+import { getPosts } from '../lib/posts.js';
+
+const posts = await getPosts();
+const recent = posts.slice(0, 12);
+---
+
+<BaseLayout description={SITE.description}>
+  <div class="wrap">
+    <section class="hero">
+      <h1>맡아본 것만 씁니다</h1>
+      <p>{SITE.description}</p>
+    </section>
+
+    <ul class="chips">
+      {
+        CATEGORIES.map((c) => (
+          <li>
+            <a class="chip" href={`/category/${c.slug}/`}>
+              {c.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <AdSlot slot="inArticle" label="광고" />
+
+    <h2 style="font-size:1rem;letter-spacing:.02em;color:var(--text-faint);margin:2.5rem 0 .5rem">
+      최근 글
+    </h2>
+
+    {
+      recent.length === 0 ? (
+        <p class="empty">
+          아직 글이 없습니다. <code>src/content/blog/</code> 에 마크다운 파일을 추가하세요.
+        </p>
+      ) : (
+        <ul class="post-list">
+          {recent.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </ul>
+      )
+    }
+
+    {
+      posts.length > 12 && (
+        <p style="margin-top:2rem">
+          <a class="chip" href="/blog/">
+            전체 글 보기 ({posts.length}편) →
+          </a>
+        </p>
+      )
+    }
+  </div>
+</BaseLayout>

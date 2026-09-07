@@ -1,0 +1,20 @@
+---
+import { SITE } from '../consts.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <div>
+      <p style="margin:0 0 .375rem;font-weight:600;color:var(--text)">{SITE.title}</p>
+      <p style="margin:0">© {year} {SITE.author}. All rights reserved.</p>
+    </div>
+
+    <nav aria-label="사이트 정보">
+      <a href="/about/">소개</a>
+      <a href="/contact/">문의</a>
+      <a href="/privacy/">개인정보처리방침</a>
+      <a href="/rss.xml">RSS</a>
+    </nav>
+  </div>
+</footer>

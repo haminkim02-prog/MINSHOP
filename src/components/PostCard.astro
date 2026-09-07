@@ -1,0 +1,18 @@
+---
+import { CATEGORIES } from '../consts.js';
+import FormattedDate from './FormattedDate.astro';
+
+const { post } = Astro.props;
+const cat = CATEGORIES.find((c) => c.slug === post.data.category);
+---
+
+<li class="post-card">
+  <a href={`/blog/${post.id}/`}>
+    <div class="post-card__meta">
+      {cat && <span class="post-card__cat">{cat.name}</span>}
+      <FormattedDate date={post.data.pubDate} />
+    </div>
+    <h2 class="post-card__title">{post.data.title}</h2>
+    <p class="post-card__desc">{post.data.description}</p>
+  </a>
+</li>

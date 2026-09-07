@@ -1,0 +1,115 @@
+---
+// 모든 페이지의 <head> 안에 들어가는 SEO / 광고 / 분석 태그 모음.
+import { SITE, ADSENSE, GA4_ID } from '../consts.js';
+import '../styles/global.css';
+
+const {
+  title,
+  description = SITE.description,
+  image,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = image ? new URL(image, Astro.site).href : undefined;
+const fullTitle = title ? `${title} | ${SITE.title}` : SITE.title;
+
+// 구조화 데이터 — 검색결과에 작성자/발행일이 노출될 확률을 높입니다.
+const jsonLd =
+  type === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title,
+        description,
+        url: canonical,
+        datePublished: publishedTime?.toISOString(),
+        dateModified: (modifiedTime ?? publishedTime)?.toISOString(),
+        author: { '@type': 'Person', name: SITE.author },
+        publisher: { '@type': 'Organization', name: SITE.title },
+        ...(ogImage ? { image: ogImage } : {}),
+      }
+    : {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: SITE.title,
+        description: SITE.description,
+        url: new URL('/', Astro.site).href,
+      };
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph (카카오톡·페이스북 공유 미리보기) -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE.title} />
+<meta property="og:title" content={title ?? SITE.title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="ko_KR" />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={title ?? SITE.title} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE.title}
+  href={new URL('rss.xml', Astro.site).href}
+/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+<!-- Google AdSense — consts.js 의 ADSENSE.client 를 채우면 자동으로 삽입됩니다 -->
+{
+  ADSENSE.client && (
+    <script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.client}`}
+      crossorigin="anonymous"
+      is:inline
+    />
+  )
+}
+
+<!-- Google Analytics 4 — consts.js 의 GA4_ID 를 채우면 자동으로 삽입됩니다 -->
+{
+  GA4_ID && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} is:inline />
+      <script is:inline define:vars={{ GA4_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', GA4_ID);
+      </script>
+    </>
+  )
+}
+
+<!-- 다크/라이트 선택값을 첫 페인트 전에 적용 (화면 깜빡임 방지) -->
+<script is:inline>
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || t === 'light') {
+        document.documentElement.dataset.theme = t;
+      }
+    } catch (e) {}
+  })();
+</script>

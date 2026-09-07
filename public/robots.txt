@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# AdSense 크롤러 — 광고 게재를 위해 허용해야 합니다.
+User-agent: Mediapartners-Google
+Allow: /
+
+# 사이트맵 위치
+Sitemap: https://1000mini.shop/sitemap-index.xml
