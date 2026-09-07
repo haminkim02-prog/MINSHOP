@@ -4,7 +4,7 @@
 
 export const SITE = {
   // 사이트 이름 (헤더, 타이틀, 저작권 표기에 사용)
-  title: '향의 기록',
+  title: '향의 모든 것',
 
   // 한 줄 소개 (검색결과에 표시되는 설명)
   description:
@@ -21,7 +21,7 @@ export const SITE = {
   email: 'haminkim02@gmail.com',
 
   // 저자명 (About 페이지, 글 하단에 표시)
-  author: '운영자',
+  author: 'MIN',
 };
 
 // ─────────────────────────────────────────────────────────────
