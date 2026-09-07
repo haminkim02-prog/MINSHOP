@@ -12,7 +12,7 @@ export const SITE = {
 
   // 사이트 주소. 마지막에 / 를 붙이지 마세요.
   // 바꾸면 public/robots.txt 의 Sitemap 주소도 같이 바꿔야 합니다.
-  url: 'https://1000mini.shop',
+  url: 'https://minlnim.store',
 
   // 기본 언어 (AdSense·검색엔진이 참고합니다)
   lang: 'ko',
