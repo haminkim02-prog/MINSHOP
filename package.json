@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "deploy": "git add -A && git commit -m update && git push"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.0",
