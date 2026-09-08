@@ -1,23 +1,28 @@
 ---
 // 광고 자리.
-//   · ADSENSE.client 가 비어 있으면  → 회색 안내 박스만 보여줍니다 (승인 전 상태)
+//   · ADSENSE.client 가 비어 있으면  → 배포된 사이트에는 아무것도 안 나옵니다.
+//                                      (npm run dev 로컬에서만 회색 안내 박스가 보입니다)
 //   · slot 번호가 있으면            → 실제 AdSense 광고 단위를 넣습니다 (수동 배치)
 //   · client 는 있고 slot 이 없으면  → 아무것도 넣지 않습니다 (자동 광고에 맡김)
+//
+// ⚠️ 승인 전에 회색 박스가 실제 사이트에 보이면 "미완성 사이트"로 보여
+//    AdSense 심사에 불리합니다. 그래서 개발 중에만 표시합니다.
 import { ADSENSE } from '../consts.js';
 
 const { slot = '', label = '광고' } = Astro.props;
 const slotId = ADSENSE.slots?.[slot] ?? '';
-const showPlaceholder = !ADSENSE.client;
+const showPlaceholder = !ADSENSE.client && import.meta.env.DEV;
 const showUnit = Boolean(ADSENSE.client && slotId);
 ---
 
 {
   showPlaceholder && (
     <div class="ad-slot">
-      <span class="ad-slot__label">{label} 자리</span>
+      <span class="ad-slot__label">{label} 자리 (로컬 미리보기 전용)</span>
       <div class="ad-slot__placeholder">
-        AdSense 승인 후 <code>src/consts.js</code> 의 <code>ADSENSE.client</code> 를 채우면
-        <br />이 자리에 광고가 표시됩니다.
+        배포된 사이트에는 표시되지 않습니다.
+        <br />
+        <code>src/consts.js</code> 의 <code>ADSENSE.client</code> 를 채우면 실제 광고가 들어갑니다.
       </div>
     </div>
   )
