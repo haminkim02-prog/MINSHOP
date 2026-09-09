@@ -27,15 +27,15 @@ Sauvage Elixir
 
 | 표기 | 약자 | 부향률 | 대략적 지속력 |
 | --- | --- | --- | --- |
-| Eau Fraîche | — | 1~3% | 1시간 내외 |
-| Eau de Cologne | EDC | 2~5% | 1~2시간 |
-| Eau de Toilette | EDT | 5~15% | 3~5시간 |
-| Eau de Parfum | EDP | 15~20% | 5~8시간 |
-| Parfum / Extrait de Parfum | — | 20~40% | 8시간 이상 |
+| Eau Fraîche | — | 1\~3% | 1시간 내외 |
+| Eau de Cologne | EDC | 2\~5% | 1\~2시간 |
+| Eau de Toilette | EDT | 5\~15% | 3\~5시간 |
+| Eau de Parfum | EDP | 15\~20% | 5\~8시간 |
+| Parfum / Extrait de Parfum | — | 20\~40% | 8시간 이상 |
 
 `Eau`는 프랑스어로 "물"입니다. `Eau de Toilette`는 직역하면 "화장(단장)의 물" 정도입니다.
 
-**`Extrait de Parfum`**은 가장 진한 형태로, 그냥 `Extrait` 또는 `Parfum`이라고만 적히기도 합니다. 용량이 작고(보통 7.5~30ml) 가격이 높습니다.
+**`Extrait de Parfum`**은 가장 진한 형태로, 그냥 `Extrait` 또는 `Parfum`이라고만 적히기도 합니다. 용량이 작고(보통 7.5\~30ml) 가격이 높습니다.
 
 ## 2. ⚠️ 가장 중요한 사실 — 이 기준은 법이 아닙니다
 
@@ -110,10 +110,10 @@ Sauvage Elixir
 | **Natural Spray / Vaporisateur** | 분무형. 스프레이 |
 | **Splash** | 뿌리는 게 아니라 따라 쓰는 형태 |
 | **Tester** | 시향용으로 매장에 공급되는 제품. 내용물은 정품과 같고 박스·뚜껑이 간소합니다. 정품보다 저렴합니다 |
-| **Miniature / Travel Size** | 소용량 (보통 5~15ml) |
+| **Miniature / Travel Size** | 소용량 (보통 5\~15ml) |
 | **Refill** | 리필용. 스프레이 없이 액체만 |
 
-> **테스터(Tester)는 가짜가 아닙니다.** 내용물은 정품과 동일하고, 포장만 간소합니다. 정품보다 20~40% 저렴한 경우가 많아서, 향이 확실하다면 합리적인 선택입니다. 다만 뚜껑이 없거나 박스가 없어서 **보관에는 불리**합니다.
+> **테스터(Tester)는 가짜가 아닙니다.** 내용물은 정품과 동일하고, 포장만 간소합니다. 정품보다 20\~40% 저렴한 경우가 많아서, 향이 확실하다면 합리적인 선택입니다. 다만 뚜껑이 없거나 박스가 없어서 **보관에는 불리**합니다.
 
 ## 실전 — 라벨 읽는 순서
 
