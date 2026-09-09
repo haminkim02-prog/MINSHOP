@@ -1,0 +1,47 @@
+# 예약 발행용 자동 재배포
+#
+# Astro 는 정적 사이트라서 "빌드한 순간"의 상태로 고정됩니다.
+# 미래 날짜(pubDate)로 예약한 글은, 그 날짜가 지난 뒤에 다시 빌드해야 공개됩니다.
+# 이 워크플로가 매일 Vercel 재배포를 트리거해서 예약 글을 공개합니다.
+#
+# ── 설정 방법 (한 번만) ─────────────────────────────────────
+# 1) Vercel  → minshop 프로젝트 → Settings → Git → Deploy Hooks
+#    Hook 이름: daily-publish  /  브랜치: main  → Create Hook
+#    생성된 URL 을 복사 (https://api.vercel.com/v1/integrations/deploy/... )
+#
+# 2) GitHub → MINSHOP 저장소 → Settings → Secrets and variables → Actions
+#    New repository secret
+#    Name:   VERCEL_DEPLOY_HOOK
+#    Secret: 위에서 복사한 URL  → Add secret
+#
+# 설정이 끝나면 매일 자동으로 돌아갑니다.
+# ────────────────────────────────────────────────────────────
+
+name: daily-publish
+
+on:
+  schedule:
+    # 매일 00:10 UTC = 한국시간 오전 9시 10분
+    - cron: '10 0 * * *'
+  # 저장소 Actions 탭에서 수동 실행도 가능합니다
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vercel 재배포 트리거
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK 시크릿이 설정되지 않았습니다."
+            echo "이 파일 상단의 '설정 방법'을 참고하세요."
+            exit 1
+          fi
+          code=$(curl -s -o /tmp/out.txt -w "%{http_code}" -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}")
+          echo "HTTP $code"
+          cat /tmp/out.txt
+          if [ "$code" != "200" ] && [ "$code" != "201" ]; then
+            echo "::error::재배포 트리거 실패 (HTTP $code)"
+            exit 1
+          fi
+          echo "재배포를 요청했습니다. Vercel Deployments 에서 진행 상황을 볼 수 있습니다."
