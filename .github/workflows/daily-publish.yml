@@ -1,47 +1,59 @@
-# 예약 발행용 자동 재배포
+# 예약 발행 자동화
 #
 # Astro 는 정적 사이트라서 "빌드한 순간"의 상태로 고정됩니다.
-# 미래 날짜(pubDate)로 예약한 글은, 그 날짜가 지난 뒤에 다시 빌드해야 공개됩니다.
-# 이 워크플로가 매일 Vercel 재배포를 트리거해서 예약 글을 공개합니다.
+# 미래 날짜(pubDate)로 예약한 글은, 그 날짜가 지난 뒤 다시 빌드해야 공개됩니다.
 #
-# ── 설정 방법 (한 번만) ─────────────────────────────────────
-# 1) Vercel  → minshop 프로젝트 → Settings → Git → Deploy Hooks
-#    Hook 이름: daily-publish  /  브랜치: main  → Create Hook
-#    생성된 URL 을 복사 (https://api.vercel.com/v1/integrations/deploy/... )
+# 이 워크플로는 매일 한국시간 오전 9시 10분에 돌면서
+#   · 오늘 날짜로 예약된 글이 있으면  → 빈 커밋을 push → Vercel 자동 재배포
+#   · 없으면                          → 아무것도 하지 않음
 #
-# 2) GitHub → MINSHOP 저장소 → Settings → Secrets and variables → Actions
-#    New repository secret
-#    Name:   VERCEL_DEPLOY_HOOK
-#    Secret: 위에서 복사한 URL  → Add secret
-#
-# 설정이 끝나면 매일 자동으로 돌아갑니다.
+# ── 설정할 것이 없습니다 ─────────────────────────────────────
+# GitHub 이 자동으로 제공하는 GITHUB_TOKEN 만 사용하므로
+# Deploy Hook 이나 비밀값(Secret) 등록이 필요하지 않습니다.
+# 저장소 Actions 탭에서 "Run workflow" 로 수동 실행도 가능합니다.
 # ────────────────────────────────────────────────────────────
 
 name: daily-publish
 
 on:
   schedule:
-    # 매일 00:10 UTC = 한국시간 오전 9시 10분
+    # 00:10 UTC = 한국시간 오전 9시 10분
+    # (GitHub 무료 플랜의 예정 작업은 수십 분 지연될 수 있습니다)
     - cron: '10 0 * * *'
-  # 저장소 Actions 탭에서 수동 실행도 가능합니다
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  redeploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Vercel 재배포 트리거
+      - uses: actions/checkout@v4
+
+      - name: 오늘 공개할 글이 있는지 확인
+        id: check
         run: |
-          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
-            echo "::error::VERCEL_DEPLOY_HOOK 시크릿이 설정되지 않았습니다."
-            echo "이 파일 상단의 '설정 방법'을 참고하세요."
-            exit 1
+          TODAY=$(TZ=Asia/Seoul date +%Y-%m-%d)
+          echo "한국시간 기준 오늘: $TODAY"
+
+          DUE=$(grep -rl "pubDate: $TODAY" src/content/blog/ 2>/dev/null || true)
+
+          if [ -n "$DUE" ]; then
+            echo "오늘 공개 예정:"
+            echo "$DUE" | sed 's/^/  /'
+            echo "due=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "오늘 공개 예정인 글이 없습니다. 재배포를 건너뜁니다."
+            echo "due=false" >> "$GITHUB_OUTPUT"
           fi
-          code=$(curl -s -o /tmp/out.txt -w "%{http_code}" -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}")
-          echo "HTTP $code"
-          cat /tmp/out.txt
-          if [ "$code" != "200" ] && [ "$code" != "201" ]; then
-            echo "::error::재배포 트리거 실패 (HTTP $code)"
-            exit 1
-          fi
-          echo "재배포를 요청했습니다. Vercel Deployments 에서 진행 상황을 볼 수 있습니다."
+
+      - name: 재배포 트리거 (빈 커밋 push → Vercel 자동 배포)
+        if: steps.check.outputs.due == 'true'
+        run: |
+          TODAY=$(TZ=Asia/Seoul date +%Y-%m-%d)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "chore: 예약 글 공개 재배포 ($TODAY)"
+          git push
+          echo "push 완료 — Vercel 이 재배포를 시작합니다."
