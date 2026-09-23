@@ -4,14 +4,8 @@ description: '조말론 우드 세이지 앤 씨 솔트 콜로뉴를 직접 쓰�
 pubDate: 2026-09-29
 category: 'review'
 tags: ['조말론', '리뷰', '아쿠아틱', '니치']
-draft: true
+draft: false
 ---
-
-<!--
-  ▣ 마지막 확인만 남았습니다.
-     아래 [ ] 로 남은 부분(있다면)을 채우고, 프론트매터의 draft 를 false 로 바꾸면 발행됩니다.
-     발행 전에 이 주석 블록은 지우세요.
--->
 
 조말론 콜로뉴 세 가지를 함께 쓰고 있는데, **가장 고급스럽게 느껴지는 건** 이 우드 세이지 앤 씨 솔트입니다.
 
@@ -121,6 +115,9 @@ draft: true
 
 **함께 읽으면 좋은 글**
 
-- [조말론 콜로뉴 3종 비교](/blog/jo-malone-comparison/) — 블랙베리 앤 베이 · 잉글리시 페어 앤 프리지아 · 우드 세이지 앤 씨 솔트
+- [조말론 블랙베리 앤 베이 리뷰](/blog/jo-malone-blackberry-bay/) — 정반대 성격의 달달한 향
+- [조말론 잉글리시 페어 앤 프리지아 리뷰](/blog/jo-malone-english-pear-freesia/) — 가장 무난한 데일리
 - [향 계열 8가지 정리](/blog/fragrance-families/) — 아쿠아틱 계열의 특성
 - [계절별 향수 선택법](/blog/seasonal-fragrance/) — 여름에 강한 계열
+
+> 세 제품을 한 번에 비교한 글은 이어서 올립니다.
