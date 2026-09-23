@@ -3,13 +3,13 @@
 # Astro 는 정적 사이트라서 "빌드한 순간"의 상태로 고정됩니다.
 # 미래 날짜(pubDate)로 예약한 글은, 그 날짜가 지난 뒤 다시 빌드해야 공개됩니다.
 #
-# 이 워크플로는 매일 한국시간 오전 9시 10분에 돌면서
-#   · 오늘 날짜로 예약된 글이 있으면  → 빈 커밋을 push → Vercel 자동 재배포
-#   · 없으면                          → 아무것도 하지 않음
+# 동작:
+#   · 오늘 날짜로 예약된 글이 있고, 아직 오늘 발행을 안 했으면
+#     → 빈 커밋을 push → Vercel 자동 재배포
+#   · 그 외에는 아무것도 하지 않음
 #
 # ── 설정할 것이 없습니다 ─────────────────────────────────────
-# GitHub 이 자동으로 제공하는 GITHUB_TOKEN 만 사용하므로
-# Deploy Hook 이나 비밀값(Secret) 등록이 필요하지 않습니다.
+# GitHub 이 자동으로 제공하는 GITHUB_TOKEN 만 사용합니다.
 # 저장소 Actions 탭에서 "Run workflow" 로 수동 실행도 가능합니다.
 # ────────────────────────────────────────────────────────────
 
@@ -17,9 +17,12 @@ name: daily-publish
 
 on:
   schedule:
-    # 00:10 UTC = 한국시간 오전 9시 10분
-    # (GitHub 무료 플랜의 예정 작업은 수십 분 지연될 수 있습니다)
-    - cron: '10 0 * * *'
+    # 하루 두 번 시도합니다.
+    # GitHub 무료 플랜의 예정 작업은 지연되거나 아예 건너뛰어질 수 있어서,
+    # 오전에 실패해도 오후에 다시 시도하도록 이중화했습니다.
+    # 정각 근처는 전 세계 워크플로가 몰려 스킵 확률이 높으므로 어중간한 분으로 잡았습니다.
+    - cron: '37 0 * * *' # 00:37 UTC = 한국시간 09:37
+    - cron: '37 7 * * *' # 07:37 UTC = 한국시간 16:37 (예비)
   workflow_dispatch:
 
 permissions:
@@ -30,6 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 오늘 이미 발행했는지 커밋 기록에서 확인해야 하므로 히스토리를 넉넉히 가져옵니다
+          fetch-depth: 50
 
       - name: 오늘 공개할 글이 있는지 확인
         id: check
@@ -39,21 +45,33 @@ jobs:
 
           DUE=$(grep -rl "pubDate: $TODAY" src/content/blog/ 2>/dev/null || true)
 
-          if [ -n "$DUE" ]; then
-            echo "오늘 공개 예정:"
-            echo "$DUE" | sed 's/^/  /'
-            echo "due=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "오늘 공개 예정인 글이 없습니다. 재배포를 건너뜁니다."
-            echo "due=false" >> "$GITHUB_OUTPUT"
+          if [ -z "$DUE" ]; then
+            echo "오늘 공개 예정인 글이 없습니다. 건너뜁니다."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
+          echo "오늘 공개 예정:"
+          echo "$DUE" | sed 's/^/  /'
+
+          # 같은 날 두 번 배포하지 않도록 방지 (오전 실행이 성공한 경우 오후 실행은 건너뜀)
+          if git log --oneline -20 | grep -qF "예약 글 공개 재배포 ($TODAY)"; then
+            echo "오늘 이미 발행했습니다. 건너뜁니다."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "run=true" >> "$GITHUB_OUTPUT"
+
       - name: 재배포 트리거 (빈 커밋 push → Vercel 자동 배포)
-        if: steps.check.outputs.due == 'true'
+        if: steps.check.outputs.run == 'true'
         run: |
           TODAY=$(TZ=Asia/Seoul date +%Y-%m-%d)
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit --allow-empty -m "chore: 예약 글 공개 재배포 ($TODAY)"
-          git push
+
+          # 그 사이 다른 커밋이 올라왔을 수 있으므로 한 번 재시도
+          git push || (git pull --rebase origin main && git push)
+
           echo "push 완료 — Vercel 이 재배포를 시작합니다."
