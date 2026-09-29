@@ -69,13 +69,22 @@ jobs:
 
           echo "run=true" >> "$GITHUB_OUTPUT"
 
-      - name: 재배포 트리거 (빈 커밋 push → Vercel 자동 배포)
+      - name: 재배포 트리거 (파일 변경 커밋 push → Vercel 자동 배포)
         if: steps.check.outputs.run == 'true'
         run: |
           TODAY=$(TZ=Asia/Seoul date +%Y-%m-%d)
+          NOW=$(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "chore: 예약 글 공개 재배포 ($TODAY)"
+
+          # ⚠️ 빈 커밋(--allow-empty)을 쓰면 파일 트리가 이전과 동일해서
+          #    Vercel 이 "변경 없음"으로 판단하고 빌드를 건너뛰는 경우가 있습니다.
+          #    (2026-09-28, 09-29 에 실제로 배포가 누락됐습니다)
+          #    그래서 반드시 실제 파일을 변경해서 커밋합니다.
+          echo "마지막 예약 발행 재배포: $NOW" > .publish-log
+          git add .publish-log
+          git commit -m "chore: 예약 글 공개 재배포 ($TODAY)"
 
           # 그 사이 다른 커밋이 올라왔을 수 있으므로 한 번 재시도
           git push || (git pull --rebase origin main && git push)
