@@ -1,7 +1,7 @@
 ---
 title: '향수 처음 사는 사람이 가장 많이 하는 질문 12가지'
 description: '얼마짜리를 사야 하는지, EDT와 EDP가 뭐가 다른지, 왜 금방 사라지는지. 향수를 처음 살 때 막히는 질문들에 짧고 명확하게 답했습니다.'
-pubDate: 2026-10-06
+pubDate: 2026-10-05
 category: 'recommend'
 tags: ['향수추천', '입문', 'FAQ']
 draft: false
