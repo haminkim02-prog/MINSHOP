@@ -4,6 +4,8 @@ description: '존 바바토스 아티산 EDT를 직접 쓰고 시간대별 향 �
 pubDate: 2026-10-06
 category: 'review'
 tags: ['존바바토스', '리뷰', '시트러스', '남성향수']
+heroImage: '/images/john-varvatos-artisan.jpg'
+heroImageAlt: '직접 쓰고 있는 존 바바토스 아티산 125ml — 노란 라탄이 감싼 병'
 draft: false
 ---
 

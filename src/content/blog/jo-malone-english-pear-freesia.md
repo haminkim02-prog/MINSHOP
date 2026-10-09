@@ -4,6 +4,8 @@ description: '조말론 잉글리시 페어 앤 프리지아 콜로뉴를 직접
 pubDate: 2026-09-28
 category: 'review'
 tags: ['조말론', '리뷰', '플로럴', '프루티', '니치']
+heroImage: '/images/jo-malone-english-pear-freesia.jpg'
+heroImageAlt: '직접 쓰고 있는 잉글리시 페어 앤 프리지아 100ml'
 draft: false
 ---
 
@@ -23,6 +25,12 @@ draft: false
 > **시향 조건** 직접 구매해서 일상적으로 사용 중 · 손목 안쪽 분사 · 2026년 9월 기준
 
 조말론의 **가장 대표적인 스테디셀러**입니다. 2010년 출시 이후 지금까지 브랜드의 얼굴 역할을 하고 있습니다.
+
+<figure>
+  <img src="/images/jo-malone-english-pear-freesia-label.jpg" alt="잉글리시 페어 앤 프리지아 라벨 클로즈업 — 크림색 바탕에 JML 로고" />
+  <figcaption>조말론 라벨은 크림색 종이에 요철이 있습니다. 제품명 아래 'COLOGNE' 표기가 부향률입니다</figcaption>
+</figure>
+
 
 ## 노트 구성
 

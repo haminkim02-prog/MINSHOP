@@ -4,6 +4,8 @@ description: '존 바바토스 아티산 퓨어 EDT를 직접 쓰고 시간대�
 pubDate: 2026-10-07
 category: 'review'
 tags: ['존바바토스', '리뷰', '시트러스', '남성향수']
+heroImage: '/images/john-varvatos-artisan-pure.jpg'
+heroImageAlt: '직접 쓰고 있는 아티산 퓨어 125ml — 원작과 달리 라탄이 흰색입니다'
 draft: false
 ---
 

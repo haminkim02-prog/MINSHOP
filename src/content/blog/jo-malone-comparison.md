@@ -4,6 +4,8 @@ description: '조말론 대표 콜로뉴 세 가지를 직접 쓰고 비교했�
 pubDate: 2026-09-30
 category: 'recommend'
 tags: ['조말론', '비교', '니치', '추천']
+heroImage: '/images/jo-malone-english-pear-freesia.jpg'
+heroImageAlt: '직접 쓰고 있는 조말론 콜로뉴'
 draft: false
 ---
 

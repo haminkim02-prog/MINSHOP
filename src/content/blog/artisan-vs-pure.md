@@ -4,6 +4,8 @@ description: '존 바바토스 아티산과 아티산 퓨어를 둘 다 쓰면�
 pubDate: 2026-10-08
 category: 'recommend'
 tags: ['존바바토스', '비교', '플랭커', '시트러스']
+heroImage: '/images/john-varvatos-artisan.jpg'
+heroImageAlt: '왼쪽이 원작 아티산. 라탄 색으로 두 병을 구분할 수 있습니다'
 draft: false
 ---
 
@@ -35,6 +37,25 @@ Artisan Pure
 | 용량 | 125ml | 125ml |
 
 **같은 조향사가 8년 뒤에 다시 만들었습니다.** 그래서 "같은 사람이 같은 주제를 다시 풀면 어떻게 달라지는가"를 볼 수 있는 흔치 않은 사례입니다.
+
+### 라벨을 안 봐도 구분됩니다
+
+두 병을 나란히 놓으면 **라탄 색이 다릅니다.**
+
+<figure>
+  <img src="/images/john-varvatos-artisan.jpg" alt="존 바바토스 아티산 — 진한 노란색 라탄과 청회색 캡" />
+  <figcaption>원작 아티산. 라탄이 진한 노란색이고 캡은 청회색입니다</figcaption>
+</figure>
+
+<figure>
+  <img src="/images/john-varvatos-artisan-pure.jpg" alt="존 바바토스 아티산 퓨어 — 흰색에 가까운 라탄과 짙은 갈색 캡" />
+  <figcaption>아티산 퓨어. 라탄이 흰색에 가깝고 캡은 짙은 갈색입니다</figcaption>
+</figure>
+
+색만 다른 게 아니라 **엮은 방식도 다릅니다.** 원작은 촘촘하게 짜여 있고, 퓨어는 간격이 넓고 거칩니다.
+
+사소해 보이지만 **중고 거래나 선물로 받았을 때 라벨이 지워져 있어도 구분할 수 있는 지점**입니다. 두 병 다 125ml라 크기로는 구별이 안 되거든요.
+
 
 ## 노트 구성 비교
 

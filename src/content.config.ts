@@ -18,6 +18,8 @@ const blog = defineCollection({
     tags: z.array(z.string()).default([]),
     // 대표 이미지 경로 (선택) — public 폴더 기준. 예: '/images/blue-de-chanel.jpg'
     heroImage: z.string().optional(),
+    // 대표 이미지 설명 — 사진 아래 캡션이자 alt 텍스트로 쓰입니다.
+    heroImageAlt: z.string().optional(),
     // true 로 두면 빌드에서 제외됩니다. 작성 중인 글에 사용하세요.
     draft: z.boolean().default(false),
   }),

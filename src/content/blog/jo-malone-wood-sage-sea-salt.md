@@ -4,6 +4,8 @@ description: '조말론 우드 세이지 앤 씨 솔트 콜로뉴를 직접 쓰�
 pubDate: 2026-09-29
 category: 'review'
 tags: ['조말론', '리뷰', '아쿠아틱', '니치']
+heroImage: '/images/jo-malone-wood-sage-sea-salt.jpg'
+heroImageAlt: '직접 쓰고 있는 우드 세이지 앤 씨 솔트'
 draft: false
 ---
 
@@ -23,6 +25,12 @@ draft: false
 > **시향 조건** 직접 구매해서 일상적으로 사용 중 · 손목 안쪽 분사 · 2026년 9월 기준
 
 조말론에서 **가장 독특한 위치**에 있는 향수입니다. 앞선 두 제품이 과일·꽃 중심이라면, 이쪽은 **소금기 있는 바닷바람과 해초**를 표현합니다.
+
+<figure>
+  <img src="/images/jo-malone-wood-sage-sea-salt-label.jpg" alt="우드 세이지 앤 씨 솔트 라벨 클로즈업 — 금색 테두리" />
+  <figcaption>라벨 테두리가 금색입니다. 조말론은 라인에 따라 테두리 색이 다릅니다</figcaption>
+</figure>
+
 
 ## 노트 구성
 

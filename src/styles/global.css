@@ -573,3 +573,58 @@ main {
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
 }
+
+/* ─── 글 대표 사진 ────────────────────────────────────────────
+   직접 찍은 사진은 세로가 긴 경우가 많습니다. 높이를 고정하고
+   object-fit:contain 으로 담으면 가로·세로 사진이 섞여 있어도
+   잘리지 않고, 로딩 중 레이아웃이 밀리지도 않습니다.
+   ───────────────────────────────────────────────────────── */
+.post-hero {
+  margin: 0 0 2.5rem;
+}
+
+.post-hero img {
+  height: 420px;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+
+.post-hero figcaption {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-faint);
+}
+
+/* 본문 중간 사진 */
+.post-body figure {
+  margin: 2.2rem 0;
+}
+
+.post-body figure img {
+  height: 380px;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+
+.post-body figure figcaption {
+  margin-top: 0.7rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-faint);
+}
+
+@media (max-width: 560px) {
+  .post-hero img { height: 320px; }
+  .post-body figure img { height: 300px; }
+}
