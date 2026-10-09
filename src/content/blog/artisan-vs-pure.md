@@ -5,7 +5,7 @@ pubDate: 2026-10-08
 category: 'recommend'
 tags: ['존바바토스', '비교', '플랭커', '시트러스']
 heroImage: '/images/john-varvatos-artisan.jpg'
-heroImageAlt: '왼쪽이 원작 아티산. 라탄 색으로 두 병을 구분할 수 있습니다'
+heroImageAlt: '원작 아티산. 퓨어와는 라탄 색이 달라 라벨 없이도 구분됩니다'
 draft: false
 ---
 

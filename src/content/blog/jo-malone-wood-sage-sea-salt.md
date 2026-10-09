@@ -5,7 +5,7 @@ pubDate: 2026-09-29
 category: 'review'
 tags: ['조말론', '리뷰', '아쿠아틱', '니치']
 heroImage: '/images/jo-malone-wood-sage-sea-salt.jpg'
-heroImageAlt: '직접 쓰고 있는 우드 세이지 앤 씨 솔트'
+heroImageAlt: '직접 쓰고 있는 우드 세이지 앤 씨 솔트 30ml'
 draft: false
 ---
 
@@ -20,7 +20,7 @@ draft: false
 - **조향사** 크리스틴 나겔 (Christine Nagel)
 - **부향률** 콜로뉴 (Cologne)
 - **계열** 아쿠아틱 · 그린 (마린)
-- **용량** 50ml
+- **용량** 30ml
 
 > **시향 조건** 직접 구매해서 일상적으로 사용 중 · 손목 안쪽 분사 · 2026년 9월 기준
 
