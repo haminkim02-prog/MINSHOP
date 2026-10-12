@@ -13,7 +13,7 @@ const blog = defineCollection({
     // 수정일 (선택) — 글을 갱신하면 넣어주세요. 검색엔진이 신선도로 봅니다.
     updatedDate: z.coerce.date().optional(),
     // 카테고리 — consts.js 의 CATEGORIES slug 중 하나
-    category: z.enum(['review', 'recommend', 'guide', 'book']),
+    category: z.enum(['review', 'recommend', 'guide']),
     // 태그 (선택)
     tags: z.array(z.string()).default([]),
     // 대표 이미지 경로 (선택) — public 폴더 기준. 예: '/images/blue-de-chanel.jpg'

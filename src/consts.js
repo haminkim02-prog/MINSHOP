@@ -79,11 +79,6 @@ export const CATEGORIES = [
     name: '향수 기초',
     description: '부향률, 노트, 향 계열, 보관법 — 향수 입문에 필요한 기본기.',
   },
-  {
-    slug: 'book',
-    name: '책',
-    description: '읽고 실제로 해본 것까지 적는 기록.',
-  },
 ];
 
 export const NAV = [
